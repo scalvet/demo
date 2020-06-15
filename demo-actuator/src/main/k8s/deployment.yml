@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-actuator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-actuator
+  template:
+    metadata:
+      labels:
+        app: demo-actuator
+    spec:
+      containers:
+        - name: demo-actuator
+          image: demo-actuator
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: calendar-service-config
+              mountPath: /app/config
+      volumes:
+        - name: demo-actuator-config
+          configMap:
+            name: demo-actuator-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-actuator
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 32321
+  selector:
+    app: demo-actuator

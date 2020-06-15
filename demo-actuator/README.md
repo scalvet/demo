@@ -1,8 +1,25 @@
 # Actuator Demo
 
 ## Build & run
+
+### local run
 ```shell script
 ./mvnw spring-boot:run
+```
+
+## run on K8s
+- install skaffold
+```shell script
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+sudo install skaffold /usr/local/bin/
+```
+- update config
+```shell script
+kubectl create configmap demo-actuator-config --from-file=src/main/resources/application.yml -o yaml --dry-run > src/main/k8s/demo-actuator-config-map.yml
+```
+- deploy
+```shell script
+skaffold dev --trigger notify
 ```
 
 ## Test 

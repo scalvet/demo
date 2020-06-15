@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+build:
+  artifacts:
+    - image: demo-actuator
+      custom:
+        buildCommand: ./mvnw spring-boot:build-image -Ddocker.image=$IMAGE && docker push $IMAGE
+        dependencies:
+          paths:
+            - pom.xml
+            - src/main/resources
+            - target/classes
+      sync:
+        manual:
+          - src: "src/main/resources/**/*"
+            dest: /workspace/BOOT-INF/classes
+            strip: src/main/resources/
+          - src: "target/classes/**/*"
+            dest: /workspace/BOOT-INF/classes
+            strip: target/classes/
+deploy:
+  kubectl:
+    manifests:
+      - src/main/k8s/demo/*
