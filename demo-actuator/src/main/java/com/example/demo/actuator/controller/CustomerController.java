@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.actuator.controller;
 
-import com.example.demo.domain.model.Customer;
-import com.example.demo.service.CustomerService;
+import com.example.demo.actuator.service.CustomerService;
+import com.example.demo.actuator.domain.model.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

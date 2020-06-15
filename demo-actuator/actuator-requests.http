@@ -1,7 +1,35 @@
-### GET request to /health
+### GET request to /actuator/health
 GET {{host}}/actuator/health
 Accept: application/json
 
-### GET request to /info
+### POST request to /actuator/custom false
+POST {{host}}/actuator/custom
+Content-Type: application/json
+
+{
+  "healthy": false
+}
+
+### POST request to /actuator/custom true
+POST {{host}}/actuator/custom
+Content-Type: application/json
+
+{
+  "healthy": true
+}
+
+
+### GET request to /actuator/info
 GET {{host}}/actuator/info
 Accept: application/json
+
+### GET request to /actuator/health/liveness
+GET {{host}}/actuator/health/liveness
+Accept: application/json
+
+### GET request to /actuator/health/readiness
+GET {{host}}/actuator/health/readiness
+Accept: application/json
+
+### GET request to /actuator/custom
+GET {{host}}/actuator/custom

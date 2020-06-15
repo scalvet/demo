@@ -7,3 +7,24 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
 
+management:
+  endpoint:
+    health:
+      show-details: always
+      group:
+        readiness:
+          include: readinessState, customCheck
+        liveness:
+          # health indicator list
+          include: livenessState, customCheck
+  endpoints:
+    web:
+      exposure:
+        include: health, info, custom
+  health:
+    probes:
+      enabled: true
+
+logging:
+  root: warn
+  com.example.demo.actuator: debug
