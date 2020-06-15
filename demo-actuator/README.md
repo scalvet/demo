@@ -17,6 +17,26 @@ sudo install skaffold /usr/local/bin/
 ```shell script
 kubectl create configmap demo-actuator-config --from-file=src/main/resources/application.yml -o yaml --dry-run > src/main/k8s/demo-actuator-config-map.yml
 ```
+- start minikube
+```shell script
+
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+&& chmod +x minikube
+sudo mkdir -p /usr/local/bin/
+sudo install minikube /usr/local/bin/
+# TODO test docker driver
+minikube start \
+    --driver=virtualbox \
+    --network-plugin=cni \
+    --enable-default-cni \
+    --bootstrapper=kubeadm
+
+minikube addons enable ingress
+minikube stop
+minikube start
+
+eval $(minikube docker-env)
+```
 - deploy
 ```shell script
 skaffold dev --trigger notify
@@ -24,6 +44,8 @@ skaffold dev --trigger notify
 
 ## Test 
 Check `actuator-requests.http` file for sample requests.
+
+In case you are running on minikube, execute `minikube ip` and update `http-client.env.json` accordingly.
 
 ## Features
 * CustomCheckHealthIndicator

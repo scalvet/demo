@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <docker.image>${project.artifactId}</docker.image>
+        <docker.image>localhost:5000/${project.artifactId}</docker.image>
     </properties>
 
     <dependencies>

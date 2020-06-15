@@ -15,12 +15,34 @@ spec:
       containers:
         - name: demo-actuator
           image: demo-actuator
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Never
+          #imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http
+            failureThreshold: 1
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          env:
+            - name: spring.config.location
+              value: classpath:application.yml,file:/app/config/application.yml
           volumeMounts:
-            - name: calendar-service-config
+            - name: demo-actuator-config
               mountPath: /app/config
       volumes:
         - name: demo-actuator-config
@@ -39,3 +61,19 @@ spec:
       nodePort: 32321
   selector:
     app: demo-actuator
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: demo-actuator-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: actuator.demo.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: demo-actuator
+              servicePort: 8080
