@@ -1,0 +1,7 @@
+### GET request to /health
+GET {{host}}/actuator/health
+Accept: application/json
+
+### GET request to /info
+GET {{host}}/actuator/info
+Accept: application/json
