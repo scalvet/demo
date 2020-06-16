@@ -13,11 +13,18 @@
 curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
 sudo install skaffold /usr/local/bin/
 ```
+- install kustomize
+```shell script
+curl -s "https://raw.githubusercontent.com/\
+kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+sudo chown root:root kustomize
+sudo mv kustomize /usr/local/bin/
+```
 - update config
 ```shell script
 kubectl create configmap demo-actuator-config --from-file=src/main/resources/application.yml -o yaml --dry-run > src/main/k8s/demo-actuator-config-map.yml
 ```
-- start minikube
+- install minikube
 ```shell script
 
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
@@ -33,9 +40,13 @@ minikube start \
 
 minikube addons enable ingress
 minikube stop
-minikube start
+```
 
+- start minikube
+```shell script
+minikube start
 eval $(minikube docker-env)
+echo "minikube ip = `minikube ip`"
 ```
 - deploy
 ```shell script
@@ -53,12 +64,33 @@ In case you are running on minikube, execute `minikube ip` and update `http-clie
 
 Turn the custom health indicator to unhealthy 
 ```shell script
-POST {{host}}/actuator/custom
-Content-Type: application/json
+baseUrl="http://192.168.99.100"
+host="actuator.demo.local"
 
+curl -v -X GET ${baseUrl}/actuator/health \
+-H "Host: ${host}" \
+-H "Accept: application/json" | jq
+
+curl -v -X GET ${baseUrl}/actuator/health/liveness \
+-H "Host: ${host}" \
+-H "Accept: application/json" | jq
+
+kubectl get pods
+kubectl get pods -l app=demo-actuator -o json | jq
+
+curl -v ${baseUrl}/actuator/custom \
+-H "Host: ${host}" \
+-H "Content-Type: application/json" \
+--data-binary @- << EOF
 {
   "healthy": false
 }
+EOF
+
+kubectl get pods -l app=demo-actuator
+#kubectl -n default get events --field-selector involvedObject.kind=Pod -l app=demo-actuator
+kubectl get event --field-selector involvedObject.kind=Pod
+
 ```
 
 check responses for the different endpoints

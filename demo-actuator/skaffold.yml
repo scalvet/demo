@@ -11,6 +11,7 @@ build:
           paths:
             - pom.xml
             - src/main/resources
+            - src/main/k8s
             - target/classes
       sync:
         manual:
@@ -21,6 +22,9 @@ build:
             dest: /workspace/BOOT-INF/classes
             strip: target/classes/
 deploy:
-  kubectl:
-    manifests:
-      - src/main/k8s/*
+  kustomize:
+    paths:
+      - "src/main/k8s/"
+#  kubectl:
+#    manifests:
+#      - src/main/k8s/*

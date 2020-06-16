@@ -63,6 +63,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <excludeDevtools>false</excludeDevtools>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
                     <image>
                         <name>${docker.image}</name>
                     </image>
