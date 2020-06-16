@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Endpoint(id = "custom")
 @Slf4j
 public class CustomEndpoint {
-    private CustomService service;
+    private final CustomService service;
 
     @Autowired
     CustomEndpoint(CustomService service) {

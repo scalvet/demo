@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class CustomCheckHealthIndicator implements HealthIndicator {
-    private CustomService service;
+    private final CustomService service;
 
     @Autowired
     CustomCheckHealthIndicator(CustomService service) {
