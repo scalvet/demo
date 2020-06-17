@@ -1,1 +1,1 @@
-rootProject.name = 'demo-actuator'
+rootProject.name = "demo-actuator"
