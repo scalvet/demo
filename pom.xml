@@ -93,6 +93,12 @@
                 <groupId>io.gatling</groupId>
                 <artifactId>gatling-maven-plugin</artifactId>
                 <version>3.0.5</version>
+                <configuration>
+                    <configFolder>${project.basedir}/src/gatling/config</configFolder>
+                    <resourcesFolder>${project.basedir}/src/gatling/resources</resourcesFolder>
+                    <simulationsFolder>${project.basedir}/src/gatling/simulations</simulationsFolder>
+                    <resultsFolder>${project.basedir}/target/gatling/results</resultsFolder>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>io.gatling</groupId>
