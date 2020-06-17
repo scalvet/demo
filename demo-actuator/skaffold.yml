@@ -25,6 +25,3 @@ deploy:
   kustomize:
     paths:
       - "src/main/k8s/"
-#  kubectl:
-#    manifests:
-#      - src/main/k8s/*

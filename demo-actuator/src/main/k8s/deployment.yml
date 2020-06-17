@@ -38,25 +38,9 @@ spec:
               port: http
             failureThreshold: 30
             periodSeconds: 10
-#          resources:
-#            requests:
-#              cpu: "0.02"
-#              memory: "64Mi"
-#            limits:
-#              cpu: "0.3"
-#              memory: "180Mi"
           env:
             - name: spring.config.location
               value: classpath:application.yml,file:/app/config/application.yml
-#            - name: JAVA_OPTS
-#              value: >-
-#                -XX:ReservedCodeCacheSize=80M
-#                -XX:MaxMetaspaceSize=60M
-#                -Xlog:gc
-#                -Xms110m
-#                -Xmx140m
-#                -XX:MaxRAM=180M
-#                -XX:+PrintFlagsFinal
           volumeMounts:
             - name: demo-actuator-config
               mountPath: /app/config

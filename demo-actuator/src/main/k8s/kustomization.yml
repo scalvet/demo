@@ -2,12 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 commonLabels:
   app: demo-actuator
-#images:
-#  - name: apps/demo
-#    newName: localhost:5000/apps/demo
 resources:
   - deployment.yml
+#patchesStrategicMerge:
+#  - patch/memorylimit_patch.yml
 configMapGenerator:
-- name: demo-actuator-config
-  files:
-    - config/application.yml
+  - name: demo-actuator-config
+    files:
+      - config/application.yml

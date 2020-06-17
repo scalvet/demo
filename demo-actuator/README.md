@@ -107,3 +107,53 @@ Accept: application/json
 GET {{host}}/actuator/health/liveness
 Accept: application/json
 ```
+
+
+## Memory configuration
+The different memory and CPU limits and optimizations can be done in `src/main/k8s/deployment.yml`
+
+`paketo-buildpacks/bellsoft-liberica:memory-calculator` is responsible to automatically  calculate JVM memory settings
+adjusting them to container's limits.
+
+### Limit CPU and memory - no JVM arguments
+```yaml
+          resources:
+            requests:
+              cpu: "0.3"
+              memory: "128m"
+            limits:
+              cpu: "0.5"
+              memory: "256m"
+          env:
+            - name: spring.config.location
+              value: classpath:application.yml,file:/app/config/application.yml
+```
+
+### Limit CPU and memory - JVM arguments
+```yaml
+          resources:
+            requests:
+              cpu: "0.3"
+              memory: "128m"
+            limits:
+              cpu: "0.5"
+              memory: "256m"
+          env:
+            - name: spring.config.location
+              value: classpath:application.yml,file:/app/config/application.yml
+            - name: BPL_JVM_HEAD_ROOM
+              value: "2"
+            - name: BPL_JVM_LOADED_CLASS_COUNT
+              value: "35"
+            - name: BPL_JVM_THREAD_COUNT
+              value: "10"
+            - name: JAVA_OPTS
+              value: >-
+                    -XX:ReservedCodeCacheSize=40M
+                    -XX:MaxMetaspaceSize=60M
+                    -Xlog:gc
+                    -Xms34m
+                    -Xmx40m
+                    -Xss256k
+                    -XX:MaxRAM=150M
+```
