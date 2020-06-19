@@ -1,4 +1,4 @@
-package com.example.demo.actuator.controller;
+package com.github.scalvet.demoactuator.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.example.demo.actuator.management;
+package com.github.scalvet.demoactuator.management;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

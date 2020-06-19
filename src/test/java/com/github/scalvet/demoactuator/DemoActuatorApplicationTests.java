@@ -1,4 +1,4 @@
-package com.example.demo.actuator;
+package com.github.scalvet.demoactuator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

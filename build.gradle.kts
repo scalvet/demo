@@ -5,7 +5,7 @@ plugins {
 	id("com.github.lkishalmi.gatling") version "3.3.4"
 }
 
-group = "com.example"
+group = "com.github.scalvet.demoactuator"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 

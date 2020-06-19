@@ -1,7 +1,7 @@
-package com.example.demo.actuator.controller;
+package com.github.scalvet.demoactuator.controller;
 
-import com.example.demo.actuator.service.CustomerService;
-import com.example.demo.actuator.domain.model.Customer;
+import com.github.scalvet.demoactuator.service.CustomerService;
+import com.github.scalvet.demoactuator.domain.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

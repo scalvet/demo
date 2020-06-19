@@ -1,4 +1,4 @@
-package com.example.demo.actuator.management;
+package com.github.scalvet.demoactuator.management;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
