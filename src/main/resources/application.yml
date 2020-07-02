@@ -12,6 +12,13 @@ management:
   endpoint:
     health:
       show-details: always
+      group:
+        readiness:
+          include: readinessState, customCheck
+        liveness:
+          # health indicator list
+          include: livenessState
+
   endpoints:
     web:
       exposure:
